@@ -1,42 +1,70 @@
-def displayPlayerNames(playerName):
+from pathlib import Path
+
+def displayPlayers(playerName, battingAverage):
     print()
-    print(f"{'Player Name':<15}")
-    print("-" * 35)
+    print(f"{'Player Name':<15}{'Batting Average':>15}")
+    print("-" * 30)
 
-    for i in range(10):
-        print(f"{playerName[i]:<15}")
+    for i in range(len(playerName)):
+        print(f"{playerName[i]:<15}{battingAverage[i]:>15.3f}")
 
-def displayBattingAverage(battingAverage):
+
+def searchName(searchPlayer, playerName):
+
+    for i in range(len(playerName)):
+        if playerName[i].lower() == searchPlayer.lower():
+            return i
+
+    return -1
+
+
+# Read names
+M12P4_names = Path("/Users/gracehsieh/CIS 106:VS Python/Module 12/M12P4_lastnames")
+
+# Read batting averages
+M12P4_avg = Path("/Users/gracehsieh/CIS 106:VS Python/Module 12/M12P4_battingAvg")
+
+playerName = []
+battingAverage = []
+
+# Read names
+if M12P4_names.exists():
+    with open(M12P4_names, "r") as infile:
+        for line in infile:
+            playerName.append(line.strip())
+
+# Read batting averages
+if M12P4_avg.exists():
+    with open(M12P4_avg, "r") as infile:
+        for line in infile:
+            battingAverage.append(float(line.strip()))
+
+# Display data
+displayPlayers(playerName, battingAverage)
+
+# First search
+searchLastName = input("\nEnter a player's last name: ")
+
+i = searchName(searchLastName, playerName)
+
+if i == -1:
+    print(searchLastName, "is not in the array")
+else:
     print()
-    print(f"{'Batting Average':>20}")
-    print("-" * 35)
+    print(f"Player Name: {playerName[i]}")
+    print(f"Batting Average: {battingAverage[i]:.3f}")
 
-    for i in range(10):
-        print(f"{battingAverage[i]:>20}")
-
-def displayLastName(lastName):
-    print()
-    print(f"{'Last Name':<15}")
-    print("-" * 35)
-
-    for i in range(10):
-        print(f"{lastName[i]:<15}")
-
-playerName = ["Barcenas", "Browere", "Carlson", "Cassaro", "Edstrom", "Hsieh", "James", "Kim", "Ling", "Montes"]
-
-# Example last names list
-lastName = playerName
-
+# While loop searches
 found = False
 
 while not found:
-    searchName = input("Enter a player's last name: ")
+    searchLastName = input("Enter a player's last name: ")
 
-    if searchName in playerName:
-        print(f"{searchName} was found!")
+    i = searchName(searchLastName, playerName)
+
+    if i != -1:
+        print(f"{playerName[i]} was found with a batting average of {battingAverage[i]:.3f}")
         found = True
     else:
-        print("Name is not found. Sorry. :( ")
+        print("Name is not found. Sorry. :(")
         print("Please try again.\n")
-
-displayLastName(lastName)

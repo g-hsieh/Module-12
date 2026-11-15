@@ -10,7 +10,6 @@ def displayExam(lastName, ExamScore):
 def rdisplay(lastName, ExamScore):
     print()
     print("Sorted by Highest Score")
-    print()
     print(f"{'Last Name':<15}{'Exam Score':>12}")
     print("-" * 27)
 
@@ -20,6 +19,7 @@ def rdisplay(lastName, ExamScore):
 def hilow(lastName, ExamScore):
 
     l = len(lastName)
+
     for y in range(l - 1):
 
         lowExamScore = 999
@@ -36,12 +36,13 @@ def hilow(lastName, ExamScore):
         # Swap names
         lastName[y], lastName[lowIndex] = lastName[lowIndex], lastName[y]
 
-
-lastName = ["Adams", "Barcenas", "Browere", "Carlson","Edstrom", "Hsieh", "Jones", "Kim",
+lastName = ["Adams", "Barcenas", "Browere", "Carlson",
+            "Edstrom", "Hsieh", "Jones", "Kim",
             "Lee", "Ling"]
 
 ExamScore = [100, 89, 75, 90, 79, 77, 88, 99, 85, 95]
 
 hilow(lastName, ExamScore)
+
 displayExam(lastName, ExamScore)
 rdisplay(lastName, ExamScore)
